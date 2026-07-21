@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Data
+*.csv
+*.xlsx
+*.json
+*.pkl
+*.parquet
+*.feather
+*.h5
+data/
+output/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.codebuddy/
+.workbuddy/
+run_log.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build
+dist/
+build/
+*.spec

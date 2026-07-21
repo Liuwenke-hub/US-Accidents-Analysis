@@ -1,0 +1,31 @@
+# US Accidents March 2023 - 数据分析依赖
+# ================================================================
+# 以下为已在当前环境验证可运行的精确版本（pip freeze 导出）。
+# 使用 `pip install -r requirements.txt` 可复现运行环境。
+# 说明：本仓库示例数据为合成数据（见 utils/generate_sample_data.py）；
+#       若使用 Kaggle 原始数据集，依赖要求相同。
+
+# 基础分析
+pandas==3.0.3
+numpy==2.5.1
+matplotlib==3.11.1
+seaborn==0.13.2
+plotly==6.9.0
+
+# 机器学习与建模
+scikit-learn==1.9.0
+xgboost==3.3.0
+scipy==1.18.0
+
+# 统计分析
+statsmodels==0.14.6
+
+# NLP 文本分析
+nltk==3.10.0
+wordcloud==1.9.6
+
+# 交互式仪表板
+streamlit==1.59.2
+
+# 依赖（间接）
+joblib==1.5.3
