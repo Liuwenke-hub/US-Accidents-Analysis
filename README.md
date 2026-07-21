@@ -398,23 +398,41 @@ streamlit run visualization/dashboard.py
 
 > 以下图表由 `visualization/build_report.py` 基于真实数据（采样 150 万条）生成，与上方文字一一对应。
 
-![图1: 事故严重程度分布](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/severity_dist.png)
-*图 1：事故严重程度分布——以 2 级（中等）为主。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/severity_dist.png" alt="图1: 事故严重程度分布">
+  <br>
+  <em>图 1：事故严重程度分布——以 2 级（中等）为主。</em>
+</p>
 
-![图2: 各州事故量 Top10](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/state_top10.png)
-*图 2：各州事故量 Top10——CA 居首。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/state_top10.png" alt="图2: 各州事故量 Top10">
+  <br>
+  <em>图 2：各州事故量 Top10——CA 居首。</em>
+</p>
 
-![图3: 按小时分布](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/hourly.png)
-*图 3：按小时分布——8 时与 17 时双峰。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/hourly.png" alt="图3: 按小时分布">
+  <br>
+  <em>图 3：按小时分布——8 时与 17 时双峰。</em>
+</p>
 
-![图4: 天气条件分布](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/weather.png)
-*图 4：天气条件分布——Fair/多云占绝对多数。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/weather.png" alt="图4: 天气条件分布">
+  <br>
+  <em>图 4：天气条件分布——Fair/多云占绝对多数。</em>
+</p>
 
-![图5: 周×小时热力图](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/heatmap_wh.png)
-*图 5：周×小时热力图——工作日早晚双峰、周末午间单峰清晰可见。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/heatmap_wh.png" alt="图5: 周×小时热力图">
+  <br>
+  <em>图 5：周×小时热力图——工作日早晚双峰、周末午间单峰清晰可见。</em>
+</p>
 
-![图6: 数值特征相关性矩阵](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/correlation.png)
-*图 6：数值特征相关性——整体弱相关，无共线性风险。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/correlation.png" alt="图6: 数值特征相关性矩阵">
+  <br>
+  <em>图 6：数值特征相关性——整体弱相关，无共线性风险。</em>
+</p>
 
 ### 5.2 预测建模 | Predictive Modeling
 
@@ -431,32 +449,44 @@ streamlit run visualization/dashboard.py
 
 **二分类（Severity≥3 = 严重）| Binary**: Random Forest **F1=0.848**（准确率 84.6%），XGBoost 0.837，Logistic Regression 0.772，基线 0.517——显著优于四分类，验证了目标重定义（新增 `Is_Night`/`Is_Weekend`/`Holiday`/`Description_Length`/`Street_Length` 等特征）的有效性。
 
-![图7: 预测模型对比](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/model_compare.png)
-*图 7：预测模型对比（四分类准确率 / F1）。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/model_compare.png" alt="图7: 预测模型对比">
+  <br>
+  <em>图 7：预测模型对比（四分类准确率 / F1）。</em>
+</p>
 
 ### 5.3 空间聚类 | Spatial Clustering
 
 - **K-Means（K=15）**：识别出 **15 个**以大城市为核心的空间簇，各簇平均严重程度差异极小（位置与严重程度关联弱）
 - **DBSCAN（eps=36.6km, city-level）**：识别出 **57 个**城市级热点聚类，噪声仅 **1.99%**（早期 1km 半径在州级数据上过细，0 聚类）
 
-![图8: K-Means 空间聚类](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/kmeans_map.png)
-*图 8：K-Means 空间聚类（K=15，以大城市为核心）。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/kmeans_map.png" alt="图8: K-Means 空间聚类">
+  <br>
+  <em>图 8：K-Means 空间聚类（K=15，以大城市为核心）。</em>
+</p>
 
 ### 5.4 时间序列预测 | Time Series Forecasting
 
 - 基于**全部 770 万条**构建月度序列（87 个月），呈**强季节性**（12 月峰值约 10.8 万起）+ **COVID-19 扰动**（2020 下凹）
 - 朴素 7 期移动平均回测 **MAPE 44.6%**，ARIMA(1,1,1) 系数不显著（p>0.89）→ 预测需季节性（SARIMA）/事件特征
 
-![图9: 月度时间序列趋势](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/timeseries.png)
-*图 9：月度时间序列趋势——强季节性（12 月峰值）+ COVID-19 扰动（2020 下凹）。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/timeseries.png" alt="图9: 月度时间序列趋势">
+  <br>
+  <em>图 9：月度时间序列趋势——强季节性（12 月峰值）+ COVID-19 扰动（2020 下凹）。</em>
+</p>
 
 ### 5.5 NLP分析 | NLP Analysis
 
 - **高频词**：accident、due、blocked、lane、exit、northbound/southbound/eastbound 等（方向词大量出现）
 - 事故类型与道路类型经正则识别，结果见 `output/word_frequency.csv`
 
-![图10: 事故描述高频词](https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/topwords.png)
-*图 10：事故描述高频词——方向词（northbound/southbound 等）大量出现。*
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/Liuwenke-hub/US-Accidents-Analysis@main/docs/figures/topwords.png" alt="图10: 事故描述高频词">
+  <br>
+  <em>图 10：事故描述高频词——方向词（northbound/southbound 等）大量出现。</em>
+</p>
 
 ---
 
