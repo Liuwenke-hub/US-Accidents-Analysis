@@ -15,19 +15,28 @@ import plotly.express as px
 from utils.tools import load_data, preprocess_basic, FACILITY_COLS, ENGLISH_STOPWORDS
 
 
+@st.cache_data(show_spinner='正在加载全量数据（仅需一次，之后从内存采样）...')
+def _load_full_data_cached():
+    """缓存全量数据加载——只执行一次，后续直接用"""
+    usecols = ['Start_Time', 'End_Time', 'Severity', 'State', 'City', 'County',
+               'Start_Lat', 'Start_Lng', 'Distance(mi)', 'Temperature(F)',
+               'Humidity(%)', 'Pressure(in)', 'Visibility(mi)', 'Wind_Speed(mph)',
+               'Precipitation(in)', 'Weather_Condition', 'Sunrise_Sunset',
+               'Description'] + FACILITY_COLS
+    df = load_data(sample_size=None, usecols=usecols)
+    df = preprocess_basic(df)
+    return df
+
+
 def load_data_for_dashboard(sample_size):
-    """加载数据用于仪表板"""
-    with st.spinner('加载数据中...'):
-        usecols = ['Start_Time', 'End_Time', 'Severity', 'State', 'City', 'County',
-                   'Start_Lat', 'Start_Lng', 'Distance(mi)', 'Temperature(F)',
-                   'Humidity(%)', 'Pressure(in)', 'Visibility(mi)', 'Wind_Speed(mph)',
-                   'Precipitation(in)', 'Weather_Condition', 'Sunrise_Sunset',
-                   'Description'] + FACILITY_COLS
+    """加载数据用于仪表板（随机采样，确保覆盖全时间段/全州）"""
+    with st.spinner('采样中...'):
+        df_full = _load_full_data_cached()  # 首次慢，后续秒回
+        df = df_full.sample(n=min(sample_size, len(df_full)), random_state=42).reset_index(drop=True)
 
-        df = load_data(sample_size=sample_size, usecols=usecols)
-        df = preprocess_basic(df)
-
-        st.success(f'数据加载完成！共 {len(df):,} 条记录')
+        st.success(f'数据就绪！采样 {len(df):,} 条 / 全量 {len(df_full):,} 条 | '
+                   f'{df_full["State"].nunique()} 州 / '
+                   f'{sorted(df_full["Year"].dropna().unique().astype(int))[0]}~{sorted(df_full["Year"].dropna().unique().astype(int))[-1]} 年')
 
     return df
 
@@ -126,15 +135,59 @@ def dashboard_geo_analysis(df):
                  title='各城市事故排名')
     st.plotly_chart(fig)
 
-    # 地理散点图
+    # 地理散点图（Scattergeo 内置美国州界线，无需外网）
     st.markdown('### 地理分布散点图')
+    import plotly.graph_objects as go
     df_map = df.dropna(subset=['Start_Lat', 'Start_Lng']).sample(min(10000, len(df)))
-    fig = px.scatter_mapbox(df_map, lat='Start_Lat', lon='Start_Lng',
-                            color='Severity',
-                            size='Distance(mi)',
-                            zoom=3,
-                            mapbox_style='carto-positron',
-                            title='事故地理分布')
+
+    fig = go.Figure()
+
+    # 散点层：事故分布（悬浮显示城市/州详情）
+    fig.add_trace(go.Scattergeo(
+        lat=df_map['Start_Lat'],
+        lon=df_map['Start_Lng'],
+        mode='markers',
+        marker=dict(
+            size=df_map['Distance(mi)'].clip(lower=0.1) * 3,
+            color=df_map['Severity'],
+            colorscale='Blues',
+            cmin=1, cmax=4,
+            colorbar=dict(title='Severity', x=1.02),
+            opacity=0.65,
+            line=dict(width=0.5, color='white')
+        ),
+        text=df_map['City'] + '<br>' +
+             'State: ' + df_map['State'] + '<br>' +
+             'Severity: ' + df_map['Severity'].astype(str) + '<br>' +
+             'Dist: ' + df_map['Distance(mi)'].round(2).astype(str) + ' mi<br>' +
+             'Weather: ' + df_map['Weather_Condition'].fillna('N/A'),
+        hovertemplate='%{text}<extra></extra>',
+        name='Accidents'
+    ))
+
+    fig.update_geos(
+        scope='usa',
+        projection_type='albers usa',
+        showland=True,
+        landcolor='rgb(243,243,243)',
+        lakecolor='rgb(217,227,243)',
+        coastlinecolor='gray',
+        coastlinewidth=1,
+        countrycolor='gray',
+        countrywidth=1,
+        showsubunits=True,
+        subunitcolor='#7f8c8d',
+        subunitwidth=1,
+        showcoastlines=True,
+        showcountries=True,
+        showlakes=True
+    )
+
+    fig.update_layout(
+        title='事故地理分布（悬浮查看城市/州详情）',
+        margin=dict(r=10, t=40, b=10, l=10),
+        height=600
+    )
     st.plotly_chart(fig)
 
 
@@ -335,7 +388,7 @@ def main():
 
     st.sidebar.header('数据筛选')
 
-    sample_size = st.sidebar.slider('采样数量', 1000, 100000, 50000, step=10000)
+    sample_size = st.sidebar.slider('采样数量', 1000, 500000, 50000, step=10000)
 
     df = load_data_for_dashboard(sample_size)
 
