@@ -576,6 +576,34 @@ streamlit run visualization/dashboard.py
 
 ---
 
+## 数据来源 | Data Source
+
+**中文**：
+
+- **数据集**：US Accidents (2016 – 2023) — A Countrywide Traffic Accident Dataset（美国全国性交通事故数据集）
+- **作者 / 发布方**：Sobhan Moosavi 等（The Ohio State University，俄亥俄州立大学）
+- **首次公开时间**：**2019 年 6 月 12 日**（论文 arXiv:1906.05409）；数据集持续更新至 **2023 年 3 月**最终版——覆盖 2016.02 – 2023.03、美国本土 49 个州、约 **770 万条**事故记录；作者已声明此后不再更新
+- **获取渠道**：[Kaggle](https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents/) ｜ [作者官网](https://smoosavi.org/datasets/us_accidents)
+- **许可协议**：**CC BY-NC-SA 4.0**（仅限研究 / 学术 / 非商业用途，商用需另行授权）
+- **引用要求**：使用本数据集须引用下方参考文献 [4]（Moosavi et al., 2019）
+
+> ⚠️ 本项目的全部清洗、分析、建模与可视化均基于该公开数据集，并遵守 CC BY-NC-SA 4.0 协议，仅用于研究学习目的。
+
+**English**:
+
+- **Dataset**: US Accidents (2016 – 2023) — A Countrywide Traffic Accident Dataset
+- **Author / Publisher**: Sobhan Moosavi et al. (The Ohio State University)
+- **First released**: **June 12, 2019** (paper arXiv:1906.05409); continuously updated to the **March 2023** final release — spanning 2016.02 – 2023.03, 49 contiguous US states, ~**7.7M** records; the author states it will no longer be updated.
+- **Source**: [Kaggle](https://www.kaggle.com/datasets/sobhanmoosavi/us-accidents/) ｜ [Author's site](https://smoosavi.org/datasets/us_accidents)
+- **License**: **CC BY-NC-SA 4.0** (research / academic / non-commercial use only)
+- **Citation**: cite reference [4] below (Moosavi et al., 2019) when using this dataset
+
+> ⚠️ All cleaning, analysis, modeling, and visualizations in this project are based on this public dataset and comply with the CC BY-NC-SA 4.0 license for research/educational purposes only.
+
+*数据来源检索时间：2026-07-21（Data source verified on 2026-07-21）*
+
+---
+
 ## 参考文献 | References
 
 1. Chen, T., & Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, 785-794.
