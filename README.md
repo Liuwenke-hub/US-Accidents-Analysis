@@ -1,15 +1,19 @@
 # 美国交通事故数据分析 | US Accidents Data Analysis
 
+<!-- Tech Stack -->
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/pandas-3.0.3-blue?logo=pandas&logoColor=white" alt="pandas">
-  <img src="https://img.shields.io/badge/scikit--learn-1.9.0-orange?logo=scikitlearn&logoColor=white" alt="scikit-learn">
-  <img src="https://img.shields.io/badge/xgboost-3.3.0-red?logo=xgboost&logoColor=white" alt="xgboost">
+  <img src="https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white" alt="Python">&nbsp;
+  <img src="https://img.shields.io/badge/pandas-3.0.3-blue?logo=pandas&logoColor=white" alt="pandas">&nbsp;
+  <img src="https://img.shields.io/badge/scikit--learn-1.9.0-orange?logo=scikitlearn&logoColor=white" alt="scikit-learn">&nbsp;
+  <img src="https://img.shields.io/badge/xgboost-3.3.0-red?logo=xgboost&logoColor=white" alt="xgboost">&nbsp;
   <img src="https://img.shields.io/badge/matplotlib-3.11-purple?logo=matplotlib&logoColor=white" alt="matplotlib">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
 </p>
 
-[![CI](https://github.com/Liuwenke-hub/US-Accidents-Analysis/actions/workflows/test.yml/badge.svg)](https://github.com/Liuwenke-hub/US-Accidents-Analysis/actions)
+<!-- Status -->
+<p align="center">
+  <img src="https://github.com/Liuwenke-hub/US-Accidents-Analysis/actions/workflows/test.yml/badge.svg" alt="CI">&nbsp;&nbsp;
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+</p>
 
 > **一个完整的美国交通事故数据分析项目，涵盖探索性分析、预测建模、空间聚类、时间序列预测、NLP文本分析和交互式可视化**
 >
